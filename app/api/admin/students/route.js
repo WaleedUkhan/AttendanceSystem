@@ -4,7 +4,7 @@ import db from '../../../../lib/db';
 export async function GET() {
   try {
     const [students] = await db.query(
-      'SELECT id, name FROM users WHERE role = "student" ORDER BY name'
+      'SELECT id, name FROM users WHERE role = 'student' ORDER BY name'
     );
     
     return NextResponse.json(students, { status: 200 });
