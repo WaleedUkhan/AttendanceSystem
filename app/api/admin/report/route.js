@@ -44,7 +44,7 @@ export async function GET(req) {
         SELECT date 
         FROM qrcode 
         WHERE MONTH(date) = ? 
-          AND YEAR(date) = 2024
+          AND YEAR(date) = 2025
       `, [month]);
         console.log({ presents, leaves, monthlyWorkingDays, workingDays, late })
 

@@ -51,6 +51,78 @@ export default function AdminViewRecords() {
   };
 
 
+  // const fetchAttendanceRecords = async () => {
+  //   let url = `/api/admin/report?userId=${user}`;
+
+  //   if (selectedMonth) {
+  //     url += `&selectedMonth=${selectedMonth}`;
+  //   } else if (fromDate && toDate) {
+  //     url += `&fromDate=${fromDate}&toDate=${toDate}`;
+  //   }
+
+  //   try {
+  //     const res = await fetch(url, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     const result = await res?.json();
+  //     setTotalWorkingDays(result.workingDays.length);
+  //     if(result?.error){
+  //       throw result.error
+  //     }
+
+  //     if (result) {
+  //       // Process attendance data
+  //       const presentsData = result?.presents?.map((attendance) => new Date(attendance?.date)?.toISOString()?.split('T')[0]);
+  //       const lateData = result?.late?.map((attendance) => new Date(attendance?.date)?.toISOString()?.split('T')[0]);
+  //       const leavesData = result?.leaves?.map((leave) => {
+  //         const start = new Date(leave?.start_date)?.toISOString()?.split('T')[0];
+  //         const end = new Date(leave?.end_date)?.toISOString()?.split('T')[0];
+  //         return { start, end };
+  //       });
+
+  //       const workingDaysData = result?.workingDays?.map((wd) => new Date(wd?.date)?.toISOString()?.split('T')[0]);
+
+  //       // Determine the attendance status for each working day
+  //       const detailedData = workingDaysData?.map((date) => {
+  //         const isPresent = presentsData?.includes(date);
+  //         const isLate = lateData?.includes(date);
+  //         const isLeave = leavesData?.some(
+  //           (leave) => date >= leave?.start && date <= leave?.end
+  //         );
+  //         const isAbsent = !isPresent && !isLeave && !isLate;
+
+  //         return {
+  //           date,
+  //           present: isPresent,
+  //           late: isLate,
+  //           leave: isLeave,
+  //           absent: isAbsent,
+  //         };
+  //       });
+
+  //       setData(detailedData);
+
+  //       // Attendance summary
+  //       const presentCount = detailedData?.filter((entry) => entry?.present)?.length;
+  //       const lateCount = detailedData?.filter((entry) => entry?.late)?.length;
+  //       const leaveCount = detailedData?.filter((entry) => entry?.leave)?.length;
+  //       const absentCount = detailedData?.filter((entry) => entry?.absent)?.length;
+
+  //       setPresents(presentCount);
+  //       setLate(lateCount);
+  //       setLeaves(leaveCount);
+  //       setAbsents(absentCount);
+  //       console.log("Presents:", presentDays, ", leaves:", ", absents:", absents, ", grade:", grade, ", late:", late)
+  //     }
+  //   } catch (error) {
+  //     alert("Error fetching attendance records:", error);
+  //     console?.error("Error fetching attendance records:", error);
+  //   }
+  // };
+
   const fetchAttendanceRecords = async () => {
     let url = `/api/admin/report?userId=${user}`;
 
@@ -68,7 +140,6 @@ export default function AdminViewRecords() {
         },
       });
       const result = await res?.json();
-      console.log("result:", result)
       setTotalWorkingDays(result.workingDays.length);
       if(result?.error){
         throw result.error
@@ -116,7 +187,7 @@ export default function AdminViewRecords() {
         setLate(lateCount);
         setLeaves(leaveCount);
         setAbsents(absentCount);
-
+        console.log("Presents:", presentDays, ", leaves:", ", absents:", absents, ", grade:", grade, ", late:", late, ", data:", data)
       }
     } catch (error) {
       alert("Error fetching attendance records:", error);
