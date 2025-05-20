@@ -51,6 +51,7 @@ export default function AdminViewRecords() {
   };
 
 
+
   const fetchAttendanceRecords = async () => {
     let url = `/api/admin/report?userId=${user}`;
 
@@ -68,7 +69,6 @@ export default function AdminViewRecords() {
         },
       });
       const result = await res?.json();
-      console.log("result:", result)
       setTotalWorkingDays(result.workingDays.length);
       if(result?.error){
         throw result.error
@@ -116,7 +116,7 @@ export default function AdminViewRecords() {
         setLate(lateCount);
         setLeaves(leaveCount);
         setAbsents(absentCount);
-
+        console.log("Presents:", presentDays, ", leaves:", ", absents:", absents, ", grade:", grade, ", late:", late, ", data:", data)
       }
     } catch (error) {
       alert("Error fetching attendance records:", error);

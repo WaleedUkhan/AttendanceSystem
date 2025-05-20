@@ -4,12 +4,16 @@ import db from '../../../../lib/db';
 export async function POST(req) {
   const { userId, date, status } = await req.json();
 
-  if (!userId || !date || !status) {
+  if (!userId || !date || !status ) {
     return NextResponse.json(
       { error: 'Missing required fields' },
       { status: 400 }
     );
-  }
+  } else if(status === "absent") 
+    return NextResponse.json(
+      { message: 'Attendance marked successfully' },
+      { status: 200 }
+    );
 
   try {
     // Check if attendance already exists for this user and date
@@ -26,6 +30,7 @@ export async function POST(req) {
       );
     } else {
       // Insert new attendance record
+      console.log([userId, date, status])
       await db.query(
         'INSERT INTO attendance (user_id, date, status) VALUES (?, ?, ?)',
         [userId, date, status]
